@@ -17,7 +17,7 @@ http://www.kimsufi.com/fr/serveurs.xml.
 ## Server installation
 One thing that can take time on a fresh new install is to secures it, install tools
 etc. But don't worry I make a simple script `install.sh` that do everything for you.
-For a short explanation of the script see [install.sh][#install.sh].
+For a short explanation of the script see [install.sh](#install.sh).
 
 1. On your computer create a ssh key:
 ```bash
