@@ -3,6 +3,7 @@ This project allow you to set a secure development environment and infrastructur
 for a team very quickly with **Docker**.
 
 ## What is about?
+Out of the box securised server with fully functionnal tools:
 * Automatic **reverse proxy** and **SSL certificate** with letsencrypt.
 * **Gitlab** awesome open source collaborative git tools and continuous
 integration/deployment.
@@ -12,7 +13,7 @@ integration/deployment.
 upper version because docker cannot work. **Kimsufi** server (cheap and dedicated):
 http://www.kimsufi.com/fr/serveurs.xml.
 * A domain name manager. **OVH**: https://www.ovh.com/fr/domaines/
-* No need to SSL certificate with letsencrypt it's free and nothing to do!
+* No need to SSL certificate with letsencrypt it's free and nothing to configure!
 
 ## Server installation
 One thing that can take time on a fresh new install is to secures it, install tools
@@ -25,14 +26,14 @@ For a short explanation of the script see [install.sh](#installsh) section.
 ## install.sh
 The script will secures your server, creating a specific user and installing docker
 and other tools. Steps:
--
+- Simple
 
 ## Containers
 * `nginx`: Entrypoint of all your http requests. Automatic reverse proxy and SSL
-certificate. More informations in [./containers/nginx/README.md](README.md).
+certificate. More informations in [containers/nginx/README.md](README.md).
 * `test`: Simple Whoami that display the conainer id in the browser. Used to simply
 test the automatic reverse proxy and SSL certificate. More informations in
-[./containers/test/README.md](README.md).
+[containers/test/README.md](README.md).
 
 ## TODO
 * Add a backup process to have backup in other server.
