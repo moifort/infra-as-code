@@ -1,5 +1,5 @@
-ngnix_proxy:
-  container_name: ngnix_proxy
+nginx:
+  container_name: nginx_proxy
   restart: unless-stopped
   image: jwilder/nginx-proxy
   ports:
@@ -10,7 +10,7 @@ ngnix_proxy:
    - ./certs:/etc/nginx/certs:ro
    - ./vhosts:/etc/nginx/vhost.d
    - ./html:/usr/share/nginx/html
-   - ./conf:/etc/nginx/conf.d
+   - ./conf/proxy.conf:/etc/nginx/proxy.conf
 
 letsencrypt:
   restart: unless-stopped
@@ -22,4 +22,4 @@ letsencrypt:
    - ./certs:/etc/nginx/certs:rw
    - ./html:/usr/share/nginx/html
   environment:
-   - NGINX_PROXY_CONTAINER=ngnix_proxy
+   - NGINX_PROXY_CONTAINER=nginx_proxy
