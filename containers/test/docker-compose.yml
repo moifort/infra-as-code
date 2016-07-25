@@ -1,0 +1,7 @@
+whoami:
+    image: jwilder/whoami
+    container_name: whoami
+    environment:
+      - VIRTUAL_HOST=my.address.com,www.my.address.com
+      - LETSENCRYPT_HOST=my.address.com,www.my.address.com
+      - LETSENCRYPT_EMAIL=my@mail.com

@@ -1,0 +1,25 @@
+ngnix_proxy:
+  container_name: ngnix_proxy
+  restart: unless-stopped
+  image: jwilder/nginx-proxy
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+   - /var/run/docker.sock:/tmp/docker.sock:ro
+   - ./certs:/etc/nginx/certs:ro
+   - ./vhosts:/etc/nginx/vhost.d
+   - ./html:/usr/share/nginx/html
+   - ./conf:/etc/nginx/conf.d
+
+letsencrypt:
+  restart: unless-stopped
+  container_name: letsencrypt_companion
+  image: jrcs/letsencrypt-nginx-proxy-companion
+  volumes:
+   - /var/run/docker.sock:/var/run/docker.sock:ro
+   - ./vhosts:/etc/nginx/vhost.d
+   - ./certs:/etc/nginx/certs:rw
+   - ./html:/usr/share/nginx/html
+  environment:
+   - NGINX_PROXY_CONTAINER=ngnix_proxy
