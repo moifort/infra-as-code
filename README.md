@@ -4,6 +4,7 @@ for a team very quickly with **Docker**.
 
 ## What is about?
 Out of the box securised server with fully functionnal tools:
+* Docker engine and docker compose
 * Automatic **reverse proxy** and **SSL certificate** with letsencrypt.
 * **Gitlab** awesome open source collaborative git tools and continuous
 integration/deployment.
