@@ -19,10 +19,7 @@ One thing that can take time on a fresh new install is to secures it, install to
 etc. But don't worry I make a simple script `install.sh` that do everything for you.
 For a short explanation of the script see [install.sh](#installsh) section.
 
-1. On your computer create a ssh key:
-```bash
-ssh-keygen -t rsa -C "your@mail.com"
-```
+1. On your computer create a ssh key `ssh-keygen -t rsa -C "your@mail.com"`
 4. Run the `install.sh`
 
 ## install.sh
