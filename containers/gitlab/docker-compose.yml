@@ -2,10 +2,9 @@ postgresql:
   container_name: gitlab_postgresql
   image: sameersbn/postgresql:9.4-20
   restart: unless-stopped
-  mem_limit: 70m
   environment:
     - DB_USER=gitlab
-    - DB_PASS=K474n461714b
+    - DB_PASS=YOUR_DB_PASSWORD
     - DB_NAME=gitlabhq_production
     - DB_EXTENSION=pg_trgm
   volumes:
@@ -13,37 +12,69 @@ postgresql:
 
 gitlab:
   container_name: gitlab_app
-  image: quay.io/sameersbn/gitlab:8.10.0
+  image: quay.io/sameersbn/gitlab:8.16.6
   restart: unless-stopped
-  mem_limit: 2048m
   environment:
    - VIRTUAL_HOST=gitlab.my-domain.com
    - VIRTUAL_PORT=80
    - LETSENCRYPT_HOST=gitlab.my-domain.com
-   - LETSENCRYPT_EMAIL=my@mail.com
+   - LETSENCRYPT_EMAIL=my-mail@gmail.com
    - GITLAB_HOST=gitlab.my-domain.com
    - GITLAB_HTTPS=true
    - GITLAB_PORT=443
    - SSL_SELF_SIGNED=true
    - GITLAB_SSH_HOST=gitlab.my-domain.com
    - GITLAB_SSH_PORT=1022
-   - SMTP_USER=my@gmail.com
-   - SMTP_PASS=myPassword
+   - SMTP_USER=my-mail@gmail.com
+   - SMTP_PASS=MY_MAIL_PASSWORD
    - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
    - GITLAB_NOTIFY_PUSHER=false
-   - GITLAB_EMAIL=my@gmail.com
-   - GITLAB_EMAIL_REPLY_TO=my@gmail.com
-   - GITLAB_INCOMING_EMAIL_ADDRESS=my@gmail.com
-   - GITLAB_SECRETS_DB_KEY_BASE=HflQgcZVsqgN44v3CRtzSGhZDP2hmnf25lnz8pgJcBdkrHgZfwLMNg9bC2JM59vQ
+   - GITLAB_EMAIL=my-mail@gmail.com
+   - GITLAB_EMAIL_REPLY_TO=my-mail@gmail.com
+   - GITLAB_INCOMING_EMAIL_ADDRESS=my-mail@gmail.com
+   - GITLAB_SECRETS_DB_KEY_BASE=ENCRYPTED_DB_PASSWORD
    - GITLAB_BACKUPS=daily
    - GITLAB_BACKUP_TIME=01:00
+   - GITLAB_SECRETS_OTP_KEY_BASE=GENERATED_KEY
+   - GITLAB_SECRETS_DB_KEY_BASE=GENERATED_KEY
+   - GITLAB_SECRETS_SECRET_KEY_BASE=GENERATED_KEY
+   - OAUTH_GITLAB_API_KEY=GENERATED_KEY
+   - OAUTH_GITLAB_APP_SECRET=GENERATED_KEY
+
+   - GITLAB_REGISTRY_ENABLED=true
+   - GITLAB_REGISTRY_HOST=registry.my-domain.com
+   - GITLAB_REGISTRY_PORT=443
+   - GITLAB_REGISTRY_API_URL=https://registry.my-domain.com
+   - GITLAB_REGISTRY_KEY_PATH=/certs/registry.my-domain.com.key
+   - SSL_REGISTRY_KEY_PATH=/certs/registry.my-domain.com.key
+   - SSL_REGISTRY_CERT_PATH=/certs/registry.my-domain.com.crt
   links:
    - redis:redisio
    - postgresql:postgresql
   ports:
-   - "1022:22"
+   - "1022:22" 
   volumes:
     - ./gitlab:/home/git/data
+    - ../nginx/certs:/certs
+
+registry:
+    restart: always
+    image: registry:2.6
+    volumes:
+    - ./gitlab/shared/registry:/registry
+    - ../nginx/certs:/certs
+    environment:
+    - VIRTUAL_HOST=registry.gitlab.my-domain.com
+    - VIRTUAL_PORT=5000
+    - LETSENCRYPT_HOST=registry.gitlab.my-domain.com
+    - LETSENCRYPT_EMAIL=my-mail@gmail.com
+    - REGISTRY_LOG_LEVEL=info
+    - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/registry
+    - REGISTRY_AUTH_TOKEN_REALM=https://gitlab.my-domain.com/jwt/auth
+    - REGISTRY_AUTH_TOKEN_SERVICE=container_registry
+    - REGISTRY_AUTH_TOKEN_ISSUER=gitlab-issuer
+    - REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE=/certs/registry.gitlab.my-domain.com.crt
+    - REGISTRY_STORAGE_DELETE_ENABLED=true
 
 redis:
   container_name: gitlab_redis
@@ -52,7 +83,7 @@ redis:
 
 runner:
   container_name: gitlab_runner
-  image: gitlab/gitlab-runner:v1.3.3
+  image: gitlab/gitlab-runner:latest
   restart: unless-stopped
   volumes:
     - ./runner/config.toml:/etc/gitlab-runner/config.toml
