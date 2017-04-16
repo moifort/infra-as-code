@@ -1,0 +1,42 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "01:DD:DD:E3:CE:DD",
+        "port": 51826,
+        "pin": "111-11-111"
+    },
+
+    "description": "This is an example configuration file with one fake accessory and one fake platform. You can use this as a template for creating your own configuration file containing devices you actually own.",
+
+    "accessories": [
+       {
+          "accessory": "DenonMarantzAVRToDelete",
+          "name": "Denon Internet Radio",
+          "ip": "192.168.0.137",
+          "defaultInput": "FVP",
+          "defaultVolume": 26,
+          "minVolume": 10,
+          "maxVolume": 45
+      },
+      {
+          "accessory": "DenonMarantzAVRToDelete",
+          "name": "Denon DVD",
+          "ip": "192.168.0.137",
+          "defaultInput": "DVD",
+          "defaultVolume": 45,
+          "minVolume": 10,
+          "maxVolume": 60
+      }
+    ],
+
+    "platforms": [
+       {
+            "platform": "HarmonyHub",
+            "name": "Harmony Hub"
+       },
+       {
+            "platform": "LifxLan",
+            "name": "Lumiere"
+       }
+    ]
+}

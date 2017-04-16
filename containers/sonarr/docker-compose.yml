@@ -1,0 +1,18 @@
+sonarr:
+  image: linuxserver/sonarr:latest
+  container_name: sonarr
+  restart: unless-stopped
+#  mem_limit: 800m
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /dev/rtc:/dev/rtc:ro
+    - ./data/config:/config
+    - ../plex/data/data/series:/tv
+    - ../plex/data/data/download:/downloads/download
+  environment:
+    - VIRTUAL_HOST=sonarr.mottet.me
+    - VIRTUAL_PORT=8989
+    - LETSENCRYPT_HOST=sonarr.mottet.me
+    - LETSENCRYPT_EMAIL=thibaut.mottet@gmail.com
+    - PUID=0
+    - PGID=0

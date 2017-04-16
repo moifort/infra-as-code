@@ -1,0 +1,17 @@
+plex:
+  container_name: plex
+  image: timhaak/plex:plexpass
+  restart: unless-stopped
+  ports:
+    - 32400:32400
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./data/config:/config
+    - ./data/data:/data
+  environment:
+    - VIRTUAL_HOST=plex.###.#
+    - VIRTUAL_PORT=32400
+    - LETSENCRYPT_HOST=plex.###.#
+    - LETSENCRYPT_EMAIL=###@###.#
+    - PLEX_DISABLE_SECURITY=0
+    - DEBUG=false

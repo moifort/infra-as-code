@@ -1,0 +1,10 @@
+image: couchpotato/couchpotato:latest
+    container_name: couchpotato
+    restart: unless-stopped
+    volumes:
+        - ./data/data:/datadir
+        - ../plex/data/data/recents:/media
+        - ../plex/data/data:/downloads
+    environment:
+      - VIRTUAL_HOST=###
+      - VIRTUAL_PORT=5050

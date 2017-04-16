@@ -1,0 +1,18 @@
+transmission:
+  container_name: transmission
+  image: linuxserver/transmission:latest
+  restart: unless-stopped
+  ports:
+    - 45555:45555
+  volumes:
+    - ../plex/data/data:/downloads
+    - ./data/watch:/watch
+    - ./data/incomplete:/incomplete
+    - ./data/config:/config
+  environment:
+    - VIRTUAL_HOST=transmission.###.#
+    - VIRTUAL_PORT=9091
+    - USERNAME=###
+    - PASSWORD=###
+    - PGID=0
+    - PUID=0

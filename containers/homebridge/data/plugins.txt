@@ -1,0 +1,3 @@
+homebridge-lifx-lan
+homebridge-harmonyhub
+homebridge-denon-to-delete

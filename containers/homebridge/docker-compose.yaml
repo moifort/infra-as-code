@@ -1,0 +1,12 @@
+homebridge:
+  build: .
+  container_name: homebridge
+  restart: unless-stopped
+  ports:
+    - "51826:51826"
+  net: host
+  volumes:
+    - ./data/config.json:/root/.homebridge/config.json
+    - ./data/plugins.txt:/root/.homebridge/plugins.txt
+    - ./data/persist:/root/.homebridge/persist
+    - ./data/accessories:/root/.homebridge/accessories
