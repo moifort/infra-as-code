@@ -2,7 +2,6 @@ sonarr:
   image: linuxserver/sonarr:latest
   container_name: sonarr
   restart: unless-stopped
-#  mem_limit: 800m
   volumes:
     - /etc/localtime:/etc/localtime:ro
     - /dev/rtc:/dev/rtc:ro
@@ -10,9 +9,39 @@ sonarr:
     - ../plex/data/data/series:/tv
     - ../plex/data/data/download:/downloads/download
   environment:
-    - VIRTUAL_HOST=sonarr.mottet.me
+    - VIRTUAL_HOST=sonarr.yourdomain.com
     - VIRTUAL_PORT=8989
-    - LETSENCRYPT_HOST=sonarr.mottet.me
-    - LETSENCRYPT_EMAIL=thibaut.mottet@gmail.com
+    - LETSENCRYPT_HOST=sonarr.yourdomain.com
+    - LETSENCRYPT_EMAIL=mail@gmail.com
     - PUID=0
     - PGID=0
+
+radarr:
+  image: linuxserver/radarr:latest
+  container_name: radarr
+  restart: unless-stopped
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./data/radarr/config:/config
+    - ../plex/data/data/recents:/movies
+    - ../plex/data/data/download:/downloads/download
+    - ../plex/data/data:/data
+  environment:
+    - VIRTUAL_HOST=radarr.yourdomain.com
+    - VIRTUAL_PORT=7878
+    - LETSENCRYPT_HOST=radarr.yourdomain.com
+    - LETSENCRYPT_EMAIL=mail@gmail.com
+    - PUID=0
+    - PGID=0
+
+jackett:
+  image: linuxserver/jackett:latest
+  container_name: jackett
+  restart: unless-stopped
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./data/jackett/config:/config
+    - ./data/jackett/data/downloads:/downloads
+  environment:
+    - VIRTUAL_HOST=jackett.yourdomain.com
+    - VIRTUAL_PORT=9117
