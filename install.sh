@@ -50,7 +50,7 @@ echo "Setup ssh with user: $USER and port: $SSH_PORT"
 # Setting openssh
 echo "Set /etc/ssh/sshd_config file"
 sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
-sed -i "s/Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
+sed -i "s/#Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
 sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 echo "LoginGraceTime 20s" >> /etc/ssh/sshd_config
 echo "MaxAuthTries 1" >> /etc/ssh/sshd_config
