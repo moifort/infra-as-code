@@ -70,38 +70,15 @@ service ssh restart
 #
 # Install docker v1.11
 #
-echo "Install docker v1.11"
+echo "Install docker"
 
 # Init
-echo "Init install docker"
-echo "deb http://http.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list
-apt-get update
-apt-get purge lxc-docker*
-apt-get purge docker.io*
-apt-get install -y apt-transport-https ca-certificates
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list
-apt-get update
-apt-cache policy docker-engine
-
-#Install
-echo "Install docker"
-apt-get update
-apt-get install -y docker-engine
+curl -fsSL get.docker.com -o get-docker.sh
+sh get-docker.sh
 
 # non-root access
 echo "non root access"
 groupadd docker
 gpasswd -a $USER docker
-
-echo "restart docker"
-service docker restart
-
-#
-# Install docker-compose
-#
-echo "Install docker-compose 1.7.1"
-curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
 
 echo "alias dc='docker-compose'" >> /home/$USER/.bashrc
