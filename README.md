@@ -22,12 +22,11 @@ etc. But don't worry I make a simple script `install.sh` that do everything for 
 For a short explanation of the script see [install.sh](#installsh) section.
 
 1. On your computer create a ssh key `ssh-keygen -t rsa -C "your@mail.com"`
-4. Run the `install.sh`
+4. Run the `install.sh "userName" "sshPort" "myPublicKey"`
 
 ## install.sh
 The script will secures your server, creating a specific user and installing docker
-and other tools. Steps:
-- Simple
+and other tools.
 
 ## Containers
 * `nginx`: Entrypoint of all your http requests. Automatic reverse proxy and SSL
@@ -36,5 +35,3 @@ certificate. More informations in [containers/nginx/README.md](README.md).
 test the automatic reverse proxy and SSL certificate. More informations in
 [containers/test/README.md](README.md).
 
-## TODO
-* Add a backup process to have backup in other server.
