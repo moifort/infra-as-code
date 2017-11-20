@@ -83,15 +83,16 @@ echo "Install docker-compose"
 curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-#
-# Add shortcup
-#
-echo "Install shortcut"
-# TODO
-
 # non-root access
 echo "non root access"
 groupadd docker
 gpasswd -a $USER docker
 
-echo "alias dc='docker-compose'" >> /home/$USER/.bashrc
+#
+# Add shortcup
+#
+echo "Install shortcut"
+echo "alias dc='docker-compose'" >> /home/$USER/.bash_aliases
+echo "alias dcup='dc stop && dc rm -af && dc up -d && dc logs -f --tail=300'" >> /home/$USER/.bash_aliases
+echo "alias dclogs='dc logs -f --tail=300'" >> /home/$USER/.bash_aliases
+echo "alias dcrm='dc stop && dc rm -af'" >> /home/$USER/.bash_aliases
