@@ -23,7 +23,7 @@ fi
 # Install utilities
 #
 echo "Install utilities (htop, zip, curl, etc.)"
-apt-get install -y htop unzip zip curl xz-utils tree
+apt-get install -y htop unzip zip curl xz-utils tree exfat-fuse exfat-utils
 
 #
 # Create user with ssh key
